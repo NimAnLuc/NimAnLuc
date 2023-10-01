@@ -1,0 +1,20 @@
+{
+    "name": "nimanluc/shop-dien-tu",
+    "description": "Học lập trình website với thầy Lợi",
+    "athours": [
+        {
+            "name": "Nim An Luc",
+            "email": "minhluc107@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        },
+        "files": [
+            "./app/Route.php",
+            "./config/database.php"
+        ]
+    },
+    "require": {}
+}
