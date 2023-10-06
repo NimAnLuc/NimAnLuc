@@ -3,36 +3,36 @@ class Route
 {
     public static function route_site()
     {
-        $pathview = "views/frontend/";
+        $pathView = "views/frontend/";
         if (!isset($_REQUEST["option"])) {
-            $pathview .="home.php";
-        }else{
-            $pathview .=  $_REQUEST["option"];
-            if (!isset($_REQUEST["slug"])){
-                $pathview .=  "-detai.php";
-            }else{
-                if (!isset($_REQUEST["cat"])){
-                    $pathview .=  "-category.php";
-            }else{
-                $pathview .=   ".php";
-            }
+            $pathView .= "home.php";
+        } else {
+            $pathView .= $_REQUEST["option"];
+            if (!isset($_REQUEST["slug"])) {
+                $pathView .= "-detail.php";
+            } else {
+                if (!isset($_REQUEST["cat"])) {
+                    $pathView .= "-category.php";
+                } else {
+                    $pathView .= ".php";
+                }
             }
         }
-        require_once $pathview;
+        require_once $pathView;
     }
-}
-public static function route_admin()
+    public static function route_admin()
     {
-        $pathview = "../views/backend/";
-        if (!isset($_REQUEST["option"])) {
-            $pathview .="dashboard/index.php";
-        }else{
-            $pathview .=  $_REQUEST["option"]."/";
-                if (!isset($_REQUEST["cat"])){
-                    $pathview .=  $_REQUEST["cat"]."php";
-            }else{
-                $pathview .=   "index.php";
+        $pathView = "../views/backend/";
+        if (!isset($_REQUEST['option'])) {
+            $pathView .= "dashboard/index.php";
+        } else {
+            $pathView .= $_REQUEST['option'] . "/";
+            if (isset($_REQUEST['cat'])) {
+                $pathView .= $_REQUEST['cat'] . ".php";
+            } else {    
+                $pathView .= "index.php";
             }
         }
-        require_once $pathview;
+        require_once $pathView;
+    }
 }
