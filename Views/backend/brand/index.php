@@ -2,7 +2,9 @@
 use App\Models\Brand;
 $list = Brand::all();
 ?>
+
 <?php require_once "../views/backend/header.php";?>
+<form action="index.php?option=brand&cat=process" method="post" enctype="multipart/form-data">
       <!-- CONTENT -->
       <div class="content-wrapper">
          <section class="content-header">
@@ -18,7 +20,7 @@ $list = Brand::all();
          <section class="content">
             <div class="card">
                <div class="card-header text-right">
-                  <button class="btn btn-sm btn-success">
+                  <button class="btn btn-sm btn-success" type="sumbit" name="THEM">
                      <i class="fa fa-save" aria-hidden="true"></i>
                      Lưu
                   </button>
@@ -33,6 +35,10 @@ $list = Brand::all();
                         <div class="mb-3">
                            <label>Slug</label>
                            <input type="text" name="slug" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                           <label>Mô Tả</label>
+                           <textarea name="description" class="form-control"></textarea>
                         </div>
                         <div class="mb-3">
                            <label>Hình đại diện</label>
@@ -59,17 +65,18 @@ $list = Brand::all();
                               </tr>
                            </thead>
                            <tbody>
+                              <?php if (count($list)>0):?>
                               <?php foreach($list as $item) : ?>
                               <tr class="datarow">
                                  <td>
                                     <input type="checkbox">
                                  </td>
                                  <td>
-                                    <img src="../public/images/brand/brand.jpg" alt="brand.jpg">
+                                    <img src="../public/images/brand/<?=$item->image;?>" alt="<?=$item->image;?>">
                                  </td>
                                  <td>
                                     <div class="name">
-                                       <?php echo $item->name; ?>
+                                       <?=$item->name; ?>
                                     </div>
                                     <div class="function_style">
                                        <a href="#">Hiện</a> |
@@ -78,9 +85,10 @@ $list = Brand::all();
                                        <a href="#">Xoá</a>
                                     </div>
                                  </td>
-                                 <td>Slug</td>
+                                 <td><?=$item->slug?></td>
                               </tr>
                               <?php endforeach; ?>
+                              <?php endif;?>
                            </tbody>
                         </table>
                      </div>

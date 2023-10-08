@@ -1,6 +1,6 @@
 <?php
-use App\Models\Category;
-$list = Category::all();
+use App\Models\Topic;
+$list = Topic::all();
 ?>
 <?php require_once "../views/backend/header.php";?>
       <!-- CONTENT -->
@@ -9,7 +9,7 @@ $list = Category::all();
             <div class="container-fluid">
                <div class="row mb-2">
                   <div class="col-sm-12">
-                     <h1 class="d-inline">Tất cả danh mục</h1>
+                     <h1 class="d-inline">Tất cả chủ đề</h1>
                   </div>
                </div>
             </div>
@@ -27,24 +27,12 @@ $list = Category::all();
                   <div class="row">
                      <div class="col-md-4">
                         <div class="mb-3">
-                           <label>Tên danh mục (*)</label>
-                           <input type="text" name="name" id="name" placeholder="Nhập tên danh mục" class="form-control"
-                              onkeydown="handle_slug(this.value);">
+                           <label>Tên chủ đề (*)</label>
+                           <input type="text" name="name" class="form-control">
                         </div>
                         <div class="mb-3">
                            <label>Slug</label>
-                           <input type="text" name="slug" id="slug" placeholder="Nhập slug" class="form-control">
-                        </div>
-                        <div class="mb-3">
-                           <label>Danh mục cha (*)</label>
-                           <select name="parent_id" class="form-control">
-                              <option value="">None</option>
-                              <option value="1">Tên danh mục</option>
-                           </select>
-                        </div>
-                        <div class="mb-3">
-                           <label>Hình đại diện</label>
-                           <input type="file" name="image" class="form-control">
+                           <input type="text" name="slug" class="form-control">
                         </div>
                         <div class="mb-3">
                            <label>Trạng thái</label>
@@ -61,20 +49,15 @@ $list = Category::all();
                                  <th class="text-center" style="width:30px;">
                                     <input type="checkbox">
                                  </th>
-                                 <th class="text-center" style="width:130px;">Hình ảnh</th>
-                                 <th>Tên danh mục</th>
+                                 <th>Tên chủ đề</th>
                                  <th>Tên slug</th>
                               </tr>
                            </thead>
                            <tbody>
-                              <?php if (count($list)>0):?>
                            <?php foreach($list as $item) : ?>
                               <tr class="datarow">
                                  <td>
                                     <input type="checkbox">
-                                 </td>
-                                 <td>
-                                    <img src="../public/images/category.jpg" alt="category.jpg">
                                  </td>
                                  <td>
                                     <div class="name">
@@ -83,14 +66,13 @@ $list = Category::all();
                                     <div class="function_style">
                                        <a href="#">Hiện</a> |
                                        <a href="#">Chỉnh sửa</a> |
-                                       <a href="../backend/category_show.html">Chi tiết</a> |
+                                       <a href="../backend/topic_show.html">Chi tiết</a> |
                                        <a href="#">Xoá</a>
                                     </div>
                                  </td>
                                  <td>Slug</td>
                               </tr>
                               <?php endforeach;?>
-                              <?php endif ;?>
                            </tbody>
                         </table>
                      </div>
@@ -100,4 +82,4 @@ $list = Category::all();
          </section>
       </div>
       <!-- END CONTENT-->
-      <?php require_once '../views/backend/footer.php';?>
+      <?php require_once "../views/backend/footer.php";?>
