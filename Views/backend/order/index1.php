@@ -1,16 +1,17 @@
 <?php
-use App\Models\Topic;
-$list = Topic::where('status','!=',0)->orderBy('created_at','DESC')->get();
+use App\Models\Brand;
+$list = Brand::where('status','!=',0)->orderBy('created_at','DESC')->get();
 ?>
+
 <?php require_once "../views/backend/header.php";?>
-<form action="index.php?option=topic&cat=process" method="post" enctype="multipart/form-data">
+<form action="index.php?option=order&cat=process" method="post" enctype="multipart/form-data">
       <!-- CONTENT -->
       <div class="content-wrapper">
          <section class="content-header">
             <div class="container-fluid">
                <div class="row mb-2">
                   <div class="col-sm-12">
-                     <h1 class="d-inline">Tất cả chủ đề</h1>
+                     <h1 class="d-inline">Tất cả thương hiệu</h1>
                   </div>
                </div>
             </div>
@@ -19,7 +20,7 @@ $list = Topic::where('status','!=',0)->orderBy('created_at','DESC')->get();
          <section class="content">
             <div class="card">
                <div class="card-header text-right">
-               <button class="btn btn-sm btn-success" type="sumbit" name="THEM">
+                  <button class="btn btn-sm btn-success" type="sumbit" name="THEM">
                      <i class="fa fa-save" aria-hidden="true"></i>
                      Lưu
                   </button>
@@ -28,8 +29,8 @@ $list = Topic::where('status','!=',0)->orderBy('created_at','DESC')->get();
                   <div class="row">
                      <div class="col-md-4">
                         <div class="mb-3">
-                           <label>Tên chủ đề (*)</label>
-                           <input type="text" name="name" class="form-control">
+                           <label>Tên thương hiệu (*)</label>
+                           <input type="text" name="deliveryname" class="form-control">
                         </div>
                         <div class="mb-3">
                            <label>Slug</label>
@@ -38,6 +39,10 @@ $list = Topic::where('status','!=',0)->orderBy('created_at','DESC')->get();
                         <div class="mb-3">
                            <label>Mô Tả</label>
                            <textarea name="description" class="form-control"></textarea>
+                        </div>
+                        <div class="mb-3">
+                           <label>Hình đại diện</label>
+                           <input type="file" name="image" class="form-control">
                         </div>
                         <div class="mb-3">
                            <label>Trạng thái</label>
@@ -54,36 +59,40 @@ $list = Topic::where('status','!=',0)->orderBy('created_at','DESC')->get();
                                  <th class="text-center" style="width:30px;">
                                     <input type="checkbox">
                                  </th>
-                                 <th>Tên chủ đề</th>
+                                 <th class="text-center" style="width:130px;">Hình ảnh</th>
+                                 <th>Tên thương hiệu</th>
                                  <th>Tên slug</th>
                               </tr>
                            </thead>
                            <tbody>
-                           <?php if (count($list)>0):?>
+                              <?php if (count($list)>0):?>
                               <?php foreach($list as $item) : ?>
                               <tr class="datarow">
                                  <td>
                                     <input type="checkbox">
                                  </td>
                                  <td>
+                                    <img src="../public/images/brand/<?=$item->image;?>" alt="<?=$item->image;?>">
+                                 </td>
+                                 <td>
                                     <div class="name">
-                                    <?php echo $item->name; ?>
+                                       <?=$item->name; ?>
                                     </div>
                                     <div class="function_style">
                                        <?php if($item->status==1):?>
-                                          <a class="btn btn-success btn xs" href="index.php?option=topic&cat=status">
+                                          <a class="btn btn-success btn xs" href="index.php?option=brand&cat=status&id= <?=$item->id; ?>">
                                           <i class="fas fa-toggle-on"></i>Hiện</a> |
                                        <?php else:?>
-                                          <a class="btn btn-danger btn xs"href="index.php?option=topic&cat=status&id= <?php echo $item->id; ?>">
+                                          <a class="btn btn-danger btn xs"href="index.php?option=brand&cat=status&id= <?php echo $item->id; ?>">
                                           <i class="fas fa-toggle-off"></i>Ẩn</a> |
                                        <?php endif;?>
-                                       <a class="btn btn-primary btn xs" href="index.php?option=topic&cat=edit&id= <?php echo $item->id; ?>">
+                                       <a class="btn btn-primary btn xs" href="index.php?option=brand&cat=edit&id= <?php echo $item->id; ?>">
                                        <i class="fas fa-edit"></i>Chỉnh sửa
 
                                        </a> |   
-                                       <a class="btn btn-info btn xs"   href="index.php?option=topic&cat=show&id= <?php echo $item->id; ?>">
+                                       <a class="btn btn-info btn xs"   href="index.php?option=brand&cat=show&id= <?php echo $item->id; ?>">
                                        <i class="fas fa-eye"></i>Chi tiết</a> |
-                                       <a class="btn btn-danger btn xs" href="index.php?option=topic&cat=delete&id= <?php echo $item->id; ?>">
+                                       <a class="btn btn-danger btn xs" href="index.php?option=brand&cat=delete&id= <?php echo $item->id; ?>">
                                        <i class="fas fa-trash"></i>Xoá</a>
                                     </div>
                                  </td>
@@ -100,4 +109,4 @@ $list = Topic::where('status','!=',0)->orderBy('created_at','DESC')->get();
          </section>
       </div>
       <!-- END CONTENT-->
-      <?php require_once "../views/backend/footer.php";?>
+      <?php require_once '../views/backend/footer.php';?>

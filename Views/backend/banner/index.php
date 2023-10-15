@@ -1,6 +1,10 @@
 <?php
 use App\Models\Banner;
-$list = Banner::all();
+$args=[
+   ['status','!=',0],
+   ['id','=',1]
+];
+$list = Banner::where($args)->orderBy('created_at','DESC')->get();
 ?>
 <?php require_once "../views/backend/header.php";?>
       <!-- CONTENT -->
@@ -10,7 +14,7 @@ $list = Banner::all();
                <div class="row mb-2">
                   <div class="col-sm-12">
                      <h1 class="d-inline">Tất cả banner</h1>
-                     <a href="banner_create.html" class="btn btn-sm btn-primary">Thêm banner</a>
+                     <a href="index.php?option=banner&cat=create" class="btn btn-sm btn-primary">Thêm banner</a>
                   </div>
                </div>
             </div>
@@ -28,7 +32,6 @@ $list = Banner::all();
                            <th class="text-center" style="width:30px;">
                               <input type="checkbox">
                            </th>
-                           <th class="text-center" style="width:130px;">Hình ảnh</th>
                            <th>Tên banner</th>
                            <th>Liên kết</th>
                         </tr>
@@ -40,18 +43,26 @@ $list = Banner::all();
                               <input type="checkbox">
                            </td>
                            <td>
-                              <img src="../public/images/banner.jpg" alt="banner.jpg">
-                           </td>
-                           <td>
                               <div class="name">
                               <?php echo $item->name; ?>
                               </div>
                               <div class="function_style">
-                                 <a href="#">Hiện</a> |
-                                 <a href="#">Chỉnh sửa</a> |
-                                 <a href="banner_show.html">Chi tiết</a> |
-                                 <a href="#">Xoá</a>
-                              </div>
+                                       <?php if($item->status==1):?>
+                                          <a class="btn btn-success btn xs" href="index.php?option=banner&cat=status">
+                                          <i class="fas fa-toggle-on"></i>Hiện</a> |
+                                       <?php else:?>
+                                          <a class="btn btn-danger btn xs"href="index.php?option=banner&cat=status&id= <?php echo $item->id; ?>">
+                                          <i class="fas fa-toggle-off"></i>Ẩn</a> |
+                                       <?php endif;?>
+                                       <a class="btn btn-primary btn xs" href="index.php?option=banner&cat=edit&id= <?php echo $item->id; ?>">
+                                       <i class="fas fa-edit"></i>Chỉnh sửa
+
+                                       </a> |   
+                                       <a class="btn btn-info btn xs"   href="index.php?option=banner&cat=show&id= <?php echo $item->id; ?>">
+                                       <i class="fas fa-eye"></i>Chi tiết</a> |
+                                       <a class="btn btn-danger btn xs" href="index.php?option=banner&cat=delete&id= <?php echo $item->id; ?>">
+                                       <i class="fas fa-trash"></i>Xoá</a>
+                                    </div>
                            </td>
                            <td>lien-ket</td>
                         </tr>

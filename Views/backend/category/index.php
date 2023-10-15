@@ -1,8 +1,17 @@
 <?php
 use App\Models\Category;
-$list = Category::all();
+$list = Category::where('status','!=',0)->orderBy('created_at','DESC')->get();
+
+$list_category = Category::where('status','!=',0)->orderBy('created_at','DESC')
+->get();
+$category_id_html='';
+foreach($list_category as $category)
+{
+   $category_id_html="<option value='$category->id'>$category->name</option>";
+}
 ?>
 <?php require_once "../views/backend/header.php";?>
+<form action="index.php?option=category&cat=process" method="post" enctype="multipart/form-data">
       <!-- CONTENT -->
       <div class="content-wrapper">
          <section class="content-header">
@@ -18,7 +27,7 @@ $list = Category::all();
          <section class="content">
             <div class="card">
                <div class="card-header text-right">
-                  <button class="btn btn-sm btn-success">
+                  <button class="btn btn-sm btn-success" type="sumbit" name="THEM">
                      <i class="fa fa-save" aria-hidden="true"></i>
                      Lưu
                   </button>
@@ -36,10 +45,14 @@ $list = Category::all();
                            <input type="text" name="slug" id="slug" placeholder="Nhập slug" class="form-control">
                         </div>
                         <div class="mb-3">
+                           <label>Mô Tả</label>
+                           <textarea name="description" class="form-control"></textarea>
+                        </div>
+                        <div class="mb-3">
                            <label>Danh mục cha (*)</label>
                            <select name="parent_id" class="form-control">
                               <option value="">None</option>
-                              <option value="1">Tên danh mục</option>
+                              <?=$category_id_html;?>
                            </select>
                         </div>
                         <div class="mb-3">
@@ -67,27 +80,38 @@ $list = Category::all();
                               </tr>
                            </thead>
                            <tbody>
-                              <?php if (count($list)>0):?>
-                           <?php foreach($list as $item) : ?>
+                           <?php if (count($list)>0):?>
+                              <?php foreach($list as $item) : ?>
                               <tr class="datarow">
                                  <td>
                                     <input type="checkbox">
                                  </td>
                                  <td>
-                                    <img src="../public/images/category.jpg" alt="category.jpg">
+                                    <img src="../public/images/category/<?php echo $item->image; ?>" alt="<?php echo $item->image; ?>">
                                  </td>
                                  <td>
                                     <div class="name">
                                     <?php echo $item->name; ?>
                                     </div>
                                     <div class="function_style">
-                                       <a href="#">Hiện</a> |
-                                       <a href="#">Chỉnh sửa</a> |
-                                       <a href="../backend/category_show.html">Chi tiết</a> |
-                                       <a href="#">Xoá</a>
+                                       <?php if($item->status==1):?>
+                                          <a class="btn btn-success btn xs" href="index.php?option=category&cat=status&id= <?php echo $item->id; ?>">
+                                          <i class="fas fa-toggle-on"></i>Hiện</a> |
+                                       <?php else:?>
+                                          <a class="btn btn-danger btn xs"href="index.php?option=category&cat=status&id= <?php echo $item->id; ?>">
+                                          <i class="fas fa-toggle-off"></i>Ẩn</a> |
+                                       <?php endif;?>
+                                       <a class="btn btn-primary btn xs" href="index.php?option=category&cat=edit&id= <?php echo $item->id; ?>">
+                                       <i class="fas fa-edit"></i>Chỉnh sửa
+
+                                       </a> |   
+                                       <a class="btn btn-info btn xs"   href="index.php?option=category&cat=show&id= <?php echo $item->id; ?>">
+                                       <i class="fas fa-eye"></i>Chi tiết</a> |
+                                       <a class="btn btn-danger btn xs" href="index.php?option=category&cat=delete&id= <?php echo $item->id; ?>">
+                                       <i class="fas fa-trash"></i>Xoá</a>
                                     </div>
                                  </td>
-                                 <td>Slug</td>
+                                 <td><?=$item->slug?></td>
                               </tr>
                               <?php endforeach;?>
                               <?php endif ;?>

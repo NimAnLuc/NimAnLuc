@@ -1,6 +1,6 @@
 <?php
 use App\Models\Brand;
-$list = Brand::all();
+$list = Brand::where('status','!=',0)->orderBy('created_at','DESC')->get();
 ?>
 
 <?php require_once "../views/backend/header.php";?>
@@ -79,10 +79,21 @@ $list = Brand::all();
                                        <?=$item->name; ?>
                                     </div>
                                     <div class="function_style">
-                                       <a href="#">Hiện</a> |
-                                       <a href="#">Chỉnh sửa</a> |
-                                       <a href="../backend/brand_show.html">Chi tiết</a> |
-                                       <a href="#">Xoá</a>
+                                       <?php if($item->status==1):?>
+                                          <a class="btn btn-success btn xs" href="index.php?option=brand&cat=status&id= <?=$item->id; ?>">
+                                          <i class="fas fa-toggle-on"></i>Hiện</a> |
+                                       <?php else:?>
+                                          <a class="btn btn-danger btn xs"href="index.php?option=brand&cat=status&id= <?php echo $item->id; ?>">
+                                          <i class="fas fa-toggle-off"></i>Ẩn</a> |
+                                       <?php endif;?>
+                                       <a class="btn btn-primary btn xs" href="index.php?option=brand&cat=edit&id= <?php echo $item->id; ?>">
+                                       <i class="fas fa-edit"></i>Chỉnh sửa
+
+                                       </a> |   
+                                       <a class="btn btn-info btn xs"   href="index.php?option=brand&cat=show&id= <?php echo $item->id; ?>">
+                                       <i class="fas fa-eye"></i>Chi tiết</a> |
+                                       <a class="btn btn-danger btn xs" href="index.php?option=brand&cat=delete&id= <?php echo $item->id; ?>">
+                                       <i class="fas fa-trash"></i>Xoá</a>
                                     </div>
                                  </td>
                                  <td><?=$item->slug?></td>

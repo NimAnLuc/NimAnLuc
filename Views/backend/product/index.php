@@ -1,6 +1,6 @@
 <?php
 use App\Models\Product;
-$list = Product::all();
+$list = Product::where('status','!=',0)->orderBy('created_at','DESC')->get();
 ?>
 <?php require_once "../views/backend/header.php";?>
       <!-- CONTENT -->
@@ -11,7 +11,7 @@ $list = Product::all();
                   <div class="row mb-2">
                      <div class="col-sm-12">
                         <h1 class="d-inline">Tất cả sản phẩm</h1>
-                        <a href="product_create.html" class="btn btn-sm btn-primary">Thêm sản phẩm</a>
+                        <a href="index.php?option=product&cat=create"  class="btn btn-sm btn-primary">Thêm sản phẩm</a>
                      </div>
                   </div>
                </div>
@@ -36,32 +36,51 @@ $list = Product::all();
                               <th>Tên sản phẩm</th>
                               <th>Tên danh mục</th>
                               <th>Tên thương hiệu</th>
+                              <th>Số lượng</th>
+                              <th>Giá bán</th>
+                              <th>Giá sale</th>
                            </tr>
                         </thead>
                         <tbody>
-                        <?php foreach($list as $item) : ?>
+                        <?php if (count($list)>0):?>
+                              <?php foreach($list as $item) : ?>
                            <tr class="datarow">
                               <td>
                                  <input type="checkbox">
                               </td>
                               <td>
-                                 <img src="../public/images/product.jpg" alt="product.jpg">
+                                 <img src="../public/images/product/<?=$item->image;?>" alt="<?=$item->image;?>">
                               </td>
                               <td>
                                  <div class="name">
-                                 <?php echo $item->name; ?>
+                                 <?=$item->name; ?>
                                  </div>
                                  <div class="function_style">
-                                    <a href="#">Hiện</a> |
-                                    <a href="#">Chỉnh sửa</a> |
-                                    <a href="product_show.html">Chi tiết</a> |
-                                    <a href="#">Xoá</a>
-                                 </div>
+                                       <?php if($item->status==1):?>
+                                          <a class="btn btn-success btn xs" href="index.php?option=product&cat=status">
+                                          <i class="fas fa-toggle-on"></i>Hiện</a> |
+                                       <?php else:?>
+                                          <a class="btn btn-danger btn xs"href="index.php?option=product&cat=status&id= <?php echo $item->id; ?>">
+                                          <i class="fas fa-toggle-off"></i>Ẩn</a> |
+                                       <?php endif;?>
+                                       <a class="btn btn-primary btn xs" href="index.php?option=product&cat=edit&id= <?php echo $item->id; ?>">
+                                       <i class="fas fa-edit"></i>Chỉnh sửa
+
+                                       </a> |   
+                                       <a class="btn btn-info btn xs"   href="index.php?option=product&cat=show&id= <?php echo $item->id; ?>">
+                                       <i class="fas fa-eye"></i>Chi tiết</a> |
+                                       <a class="btn btn-danger btn xs" href="index.php?option=product&cat=delete&id= <?php echo $item->id; ?>">
+                                       <i class="fas fa-trash"></i>Xoá</a>
+                                    </div>
                               </td>
-                              <td>Tên danh mục</td>
-                              <td>Tên Thuong hiệu</td>
+                              <td><?=$item->category_id;?></td>
+                              <td><?=$item->brand_id?></td>
+                              <td><?=$item->qty?></td>
+                              <td><?=$item->price?></td>
+                              <td><?=$item->price_sale?></td>
                            </tr>
-                           <?php endforeach;?>
+                           <?php endforeach; ?>
+                              <?php endif;?>
                         </tbody>
                      </table>
                   </div>

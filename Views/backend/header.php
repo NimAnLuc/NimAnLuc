@@ -51,14 +51,14 @@
                </div>
             </li>
             <li class="nav-item">
-               <a class="nav-link" href="#" role="button">
+               <a class="nav-link" href="logout.php" role="button">
                   <i class="fas fa-power-off"></i> Đăng xuất
                </a>
 </li>
          </ul>
       </nav>
       <aside class="main-sidebar sidebar-dark-primary elevation-4">
-         <a href="../backend/index.html" class="brand-link">
+         <a href="index.php" class="brand-link">
             <img src="../public/dist/img/AdminLTELogo.png" alt="AdminLTE Logo"
                class="brand-image img-circle elevation-3" style="opacity: .8">
             <span class="brand-text font-weight-light">QUẢN TRỊ</span>
@@ -85,19 +85,19 @@
                      </a>
                      <ul class="nav nav-treeview">
                         <li class="nav-item">
-                           <a href="product_index.html" class="nav-link">
+                           <a href="index.php?option=product" class="nav-link">
                               <i class="far fa-circle nav-icon"></i>
                               <p>Tất cả sản phẩm</p>
                            </a>
                         </li>
                         <li class="nav-item">
-                           <a href="category.html" class="nav-link">
+                           <a href="index.php?option=category" class="nav-link">
                               <i class="far fa-circle nav-icon"></i>
                               <p>Danh mục</p>
                            </a>
                         </li>
                         <li class="nav-item">
-                           <a href="brand_index.html" class="nav-link">
+                           <a href="index.php?option=brand" class="nav-link">
                               <i class="far fa-circle nav-icon"></i>
                               <p>Thương hiệu</p>
                            </a>
@@ -114,13 +114,13 @@
                      </a>
                      <ul class="nav nav-treeview">
                         <li class="nav-item">
-                           <a href="post_index.html" class="nav-link">
+                           <a href="index.php?option=post" class="nav-link">
                               <i class="far fa-circle nav-icon"></i>
                               <p>Tất cả bài viết</p>
 </a>
                         </li>
                         <li class="nav-item">
-                           <a href="topic_index.html" class="nav-link">
+                           <a href="index.php?option=topic" class="nav-link">
                               <i class="far fa-circle nav-icon"></i>
                               <p>Chủ đề</p>
                            </a>
@@ -143,7 +143,7 @@
                      </a>
                      <ul class="nav nav-treeview">
                         <li class="nav-item">
-                           <a href="order_index.html" class="nav-link">
+                           <a href="index.php?option=order" class="nav-link">
                               <i class="far fa-circle nav-icon"></i>
                               <p>Tất cả đơn hàng</p>
                            </a>
@@ -169,7 +169,7 @@
                      </a>
                   </li>
                   <li class="nav-item">
-                     <a href="contact_index.html" class="nav-link">
+                     <a href="index.php?option=contact" class="nav-link">
                         <i class="nav-icon far fa-circle text-danger"></i>
                         <p class="text">Liên hệ</p>
                      </a>
@@ -184,13 +184,13 @@
                      </a>
                      <ul class="nav nav-treeview">
 <li class="nav-item">
-                           <a href="menu_index.html" class="nav-link">
+                           <a href="index.php?option=menu" class="nav-link">
                               <i class="far fa-circle nav-icon"></i>
                               <p>Menu</p>
                            </a>
                         </li>
                         <li class="nav-item">
-<a href="banner_index.html" class="nav-link">
+<a href="index.php?option=banner" class="nav-link">
                               <i class="far fa-circle nav-icon"></i>
                               <p>Banner</p>
                            </a>
@@ -207,7 +207,7 @@
                      </a>
                      <ul class="nav nav-treeview">
                         <li class="nav-item">
-                           <a href="user_index.html" class="nav-link">
+                           <a href="index.php?option=user" class="nav-link">
                               <i class="far fa-circle nav-icon"></i>
                               <p>Thành viên</p>
                            </a>

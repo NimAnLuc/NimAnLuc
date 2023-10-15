@@ -1,6 +1,6 @@
 <?php
 use App\Models\User;
-$list = User::all();
+$list = User::where('status','!=',0)->orderBy('created_at','DESC')->get();
 ?>
 <?php require_once "../views/backend/header.php";?>
       <!-- CONTENT -->
@@ -10,7 +10,7 @@ $list = User::all();
                <div class="row mb-2">
                   <div class="col-sm-12">
                      <h1 class="d-inline">Tất cả thành viên</h1>
-                     <a href="user_create.html" class="btn btn-sm btn-primary">Thêm thành viên</a>
+                     <a href="index.php?option=user&cat=create" class="btn btn-sm btn-primary">Thêm thành viên</a>
                   </div>
                </div>
             </div>
@@ -32,6 +32,8 @@ $list = User::all();
                            <th>Họ tên</th>
                            <th>Điện thoại</th>
                            <th>Email</th>
+                           <th>Địa chỉ</th>
+                           <th>Vai trò</th>
                         </tr>
                      </thead>
                      <tbody>
@@ -41,21 +43,34 @@ $list = User::all();
                               <input type="checkbox">
                            </td>
                            <td>
-                              <img src="../public/images/user.jpg" alt="user.jpg">
+                              <img src="../public/images/user/<?php echo $item->image; ?>" alt="<?php echo $item->image; ?>">
                            </td>
                            <td>
                               <div class="name">
                               <?php echo $item->name; ?>
                               </div>
                               <div class="function_style">
-                                 <a href="#">Hiện</a> |
-                                 <a href="#">Chỉnh sửa</a> |
-                                 <a href="user_show.html">Chi tiết</a> |
-                                 <a href="#">Xoá</a>
-                              </div>
+                                       <?php if($item->status==1):?>
+                                          <a class="btn btn-success btn xs" href="index.php?option=user&cat=status">
+                                          <i class="fas fa-toggle-on"></i>Hiện</a> |
+                                       <?php else:?>
+                                          <a class="btn btn-danger btn xs"href="index.php?option=user&cat=status&id= <?php echo $item->id; ?>">
+                                          <i class="fas fa-toggle-off"></i>Ẩn</a> |
+                                       <?php endif;?>
+                                       <a class="btn btn-primary btn xs" href="index.php?option=user&cat=edit&id= <?php echo $item->id; ?>">
+                                       <i class="fas fa-edit"></i>Chỉnh sửa
+
+                                       </a> |   
+                                       <a class="btn btn-info btn xs"   href="index.php?option=user&cat=show&id= <?php echo $item->id; ?>">
+                                       <i class="fas fa-eye"></i>Chi tiết</a> |
+                                       <a class="btn btn-danger btn xs" href="index.php?option=user&cat=delete&id= <?php echo $item->id; ?>">
+                                       <i class="fas fa-trash"></i>Xoá</a>
+                                    </div>
                            </td>
-                           <td>0987654331</td>
-                           <td>dienloisoft@gmail.com</td>
+                           <td><?php echo $item->phone; ?></td>
+                           <td><?php echo $item->email; ?></td>
+                           <td><?php echo $item->address; ?></td>
+                           <td><?php echo $item->roles; ?></td>
                         </tr>
                         <?php endforeach;?>
                      </tbody>
