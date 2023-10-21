@@ -21,10 +21,11 @@
     use App\Models\User;
     $error = "";
         if(isset($_POST['DANGNHAP'])){
-            $username ='admin';
-            $password = '123456';
+            $username =$_POST['username'];
+            $password =sha1($_POST['password']);
             $args = [
-                ['password','=','123456'],
+
+                ['password','=',$password],
                 ['roles','=',1],
                 ['status','=',1],               
             ];
@@ -37,7 +38,8 @@
             
              
             $user = User::where($args)->first();
-            if($user!==null){
+            if($user !== null){
+                //Thanh cong
                 $_SESSION['useradmin']= $username;
                 $_SESSION['user_id']= $user->id;
                 $_SESSION['name']= $user->name;
@@ -45,6 +47,7 @@
                 header('location:index.php');
 
             }else{
+                //that bai
                 $error="Tài khoản không hợp lệ";
             }
          
@@ -66,7 +69,7 @@
             </div>
             <div class="mb-3">
                 <p>Chú ý: (*) bắt buộc phải điền thông tin</p>
-                <?php if(   $error!=""):?>
+                <?php if($error!=""):?>
                     <p class="text-danger"><?=$error;?></p>
                     <?php endif;?>
             </div>

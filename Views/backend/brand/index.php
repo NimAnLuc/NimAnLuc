@@ -19,11 +19,19 @@ $list = Brand::where('status','!=',0)->orderBy('created_at','DESC')->get();
          <!-- Main content -->
          <section class="content">
             <div class="card">
-               <div class="card-header text-right">
-                  <button class="btn btn-sm btn-success" type="sumbit" name="THEM">
+               <div class="card-header">
+                  <div class="row">
+                  <div class="col-md-6">
+                     <a href="index.php?option=brand">Tất cả(12)</a>
+                     <a href="index.php?option=brand&cat=trash">Thùng rác(12)</a>
+                  </div>
+                     <div class="col-md-6 text-right">
+                        <button class="btn btn-sm btn-success" type="sumbit" name="THEM">
                      <i class="fa fa-save" aria-hidden="true"></i>
                      Lưu
                   </button>
+               </div>
+                  </div>
                </div>
                <div class="card-body">
                   <div class="row">
